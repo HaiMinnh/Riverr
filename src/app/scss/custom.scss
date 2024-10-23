@@ -1,0 +1,348 @@
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+
+
+@mixin mText($fs, $fw, $cl) {
+    font-size: $fs;
+    font-weight: $fw;
+    color: $cl;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.header {
+    transition: all 1s ease;
+    .navbar {
+        .container-fluid {
+            .navbar-brand {}
+
+            .d-flex {
+                .form-control {
+                    box-shadow: none;
+                    border-color: #ced4da;
+                    border-radius: 5px 0 0 5px;
+                }
+
+                .btn {
+                    color: white;
+                    background: #198754;
+                    font-weight: 500;
+                    border-radius: 0px 8px 9px 0px;
+                }
+            }
+
+            .collapse {
+                .ms-5,.menu {
+                    .navbar-nav {
+                        .nav-item {
+                            .nav-link {
+                                color: gray;
+
+                                &:hover {
+                                    color: #198754;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.carousel {
+    position: relative;
+    .rounded {}
+
+    .text-search {
+        color: white;
+        position: absolute;
+        top: 150px;
+        left: 50px;
+
+        h1 {}
+
+        .form-group {
+            margin-top: 20px;
+
+            .form-control {
+                width: 500px;
+                box-shadow: none;
+                border-color: #ced4da;
+                border-radius: 5px 0 0 5px;
+            }
+
+            .btn {
+                color: white;
+                background: #198754;
+                font-weight: 500;
+                border-radius: 0px 8px 9px 0px;
+
+                &:hover {
+                    background: #198754;
+                }
+            }
+        }
+
+        .popular {
+            margin-top: 50px;
+
+            span {
+                border: 1px solid #fff;
+                border-radius: 40px;
+                padding: 0 12px;
+                white-space: nowrap;
+                font-weight: 500;
+                margin: 0px 10px 0px 10px;
+
+                &:hover {
+                    background-color: white;
+                    color: black;
+                }
+            }
+        }
+
+        .app {
+            margin-top: 20px;
+
+            span {
+                font-weight: 500;
+                font-size: 18px;
+            }
+
+            ul {
+                display: inline-block;
+
+                li {
+                    display: inline-block;
+                    list-style: none;
+                    margin-left: 20px;
+
+                    .img {}
+                }
+            }
+        }
+    }
+}
+
+.slider-container {
+    h1 {
+        margin: 30px 0;
+        @include mText(30px, 500, black)
+    }
+}
+
+.intro {
+    .text-center {
+        margin: 40px 0;
+
+        .text {
+            @include mText(30px, 500, black)
+        }
+    }
+
+    .row {
+        .col-lg-3 {
+            .icon {
+                .img {}
+            }
+
+            h5 {
+                @include mText(20px, bold, black);
+                margin: 30px 0 20px 0
+            }
+
+            .feature-text {}
+        }
+    }
+}
+
+
+.footer {
+    .menu {
+        div {
+            margin-right: 44px;
+
+            h4 {
+                margin: 25px 0;
+            }
+
+            a {
+                display: block;
+                text-decoration: none;
+                margin: 10px 0;
+                color: #838a9a;
+                font-weight: 500;
+
+                &:hover {
+                    text-decoration: underline;
+                    color: black;
+                    transition: all 0.5s;
+                    font-weight: 500;
+                }
+            }
+        }
+
+        hr {
+            margin-top: 50px;
+        }
+
+        .bottom-footer {
+            .bot_right {
+                .rounded {}
+
+                span {}
+            }
+
+            .bot_left {
+                .fab {
+                    font-size: 18px;
+                    margin: 0 15px;
+                    color: gray;
+
+                }
+
+                .text {
+                    font-size: 18px;
+                    margin: 0 30px;
+                    color: gray;
+                    font-weight: 500;
+
+                    .fa-globe {
+                        margin-right: 10px;
+                    }
+                }
+
+                .fa-male {
+                    margin: 0 0 0 40px;
+                    color: gray;
+                    padding: 10px 13px;
+                    border-radius: 65px;
+                    border: 1px solid gray;
+
+                    &:hover {
+                        border: none solid none;
+                        color: black;
+                        background-color: gray;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.error {
+    .text-center {
+        .rounded {}
+    }
+
+    .goHome {
+        text-align: center;
+        margin-top: 30px;
+
+        .btn {
+            text-decoration: none;
+            display: inline-block;
+        }
+    }
+}
+
+.slick-prev:before,
+.slick-next:before {
+    color: black;
+}
+
+.video {
+    margin-bottom: 50px;
+
+    .text-center {
+        @include mText(30px, 500, black);
+        margin: 50px 0;
+    }
+
+    .row {
+        .col-6 {
+            position: relative;
+            cursor: pointer;
+
+            .img {}
+
+            .play {
+                position: absolute;
+                top: 130px;
+                left: 280px;
+            }
+
+            .nickName {
+                @include mText(25px, 500, gray);
+            }
+
+            .logoBrand {
+                margin: 30px 0;
+            }
+
+            .des {
+                @include mText(23px, 500, #4d1727);
+            }
+        }
+    }
+}
+
+.dropdownmenu {
+    padding-bottom: 80px;
+    cursor: pointer;
+    ul {
+        margin: 0;
+        padding: 0;
+        background: white;
+        list-style: none;
+        width: 100%;
+        li {
+            margin: 0;
+            padding: 0;
+            float: left;
+            position: relative;
+            width: auto;
+            &:hover a{
+                background: #34495e;
+            }
+            &:hover ul.submenu{
+                opacity: 1;
+                top:80px;
+                visibility: visible;
+            }
+            a{
+                background:white;
+                color: black;
+                display: block;
+                font-weight: bold;
+                font-size: 13px;
+                padding: 15px 55px;
+                text-align: center;
+                text-decoration: none;
+                transition:  all 0.25s ease;
+            }
+            .submenu{
+                left: 0;
+                opacity: 0;
+                position: absolute;
+                top:35px;
+                visibility: hidden;
+                z-index: 1;
+                li{
+                    float: none;
+                    width: 100%;
+                    a{
+                        &:hover{
+                            background: orange;
+                            color: white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
