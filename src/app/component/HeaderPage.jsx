@@ -3,9 +3,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import Design from '../(pages)/design/page'
+import { getJobMenu } from '../action/service/productApi'
 
 const HeaderPage = () => {
     const [header, setHeader] = useState(false);
+    const [keyword, setKeyword] = useState('');
 
     const scrollHeader = () => {
         if (window.scrollY >= 20) {
@@ -35,11 +37,14 @@ const HeaderPage = () => {
                                 alt='logo'
                                 width={115}
                                 height={65}
+                                
                             />
                         </a>
                         { header ? <div className='form-group d-flex w-25 ms-2'>
-                        <input className="form-control" type="text" placeholder='Find Services' />
-                        <button type='submit' className='btn btn-outline-success '>Search</button>
+                        <input className="form-control" type="text" placeholder='Find Services' onChange={(e) => {
+                            setKeyword(e.target.value)
+                        }}/>
+                        <Link href={`/search?keyword=${keyword}`} type='submit' className='btn btn-outline-success '>Search</Link>
                     </div> : ''}
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon" />
@@ -51,7 +56,7 @@ const HeaderPage = () => {
                                     <a className="nav-link active fw-bold text-success" aria-current="page" href="#">Fiverr Bussiness</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link fw-bold" href="#">Explore</a>
+                                    <Link className="nav-link fw-bold" href="/explore">Explore</Link>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link fw-bold" href="#"><i class="fa fa-globe me-1"></i>English</a>
@@ -72,7 +77,7 @@ const HeaderPage = () => {
                                     <a className="nav-link active fw-bold text-success" aria-current="page" href="#">Fiverr Bussiness</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link fw-bold" href="#">Explore</a>
+                                    <Link className="nav-link fw-bold" href="/explore">Explore</Link>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link fw-bold" href="#"><i class="fa fa-globe me-1"></i>English</a>
@@ -91,7 +96,7 @@ const HeaderPage = () => {
                     </div>
             </div>
         </nav >
-                { header ? <Design /> : '' }
+                { header ? <Design/> : '' }
             </div >
         </div >
     )

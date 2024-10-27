@@ -1,11 +1,14 @@
+"use client"
 import Image from 'next/image';
-import React from 'react'
+import React, { useState } from 'react'
 import Popular from './(pages)/popular/page';
 import Intro from './(pages)/intro/page';
 import Video from './(pages)/about/page';
+import Link from 'next/link';
 
 
 const page = () => {
+  const [keyword, setKeyword] = useState('');
   return (
     <div className='container px-0'>
       <div className='carousel px-0 animate__animated animate__fadeInDown animate__delay-1s'>
@@ -20,8 +23,10 @@ const page = () => {
           <h1>Find the perfect <i className='text-white'>
             freelance</i> <br /> services for your business</h1>
           <div className='form-group d-flex'>
-            <input className="form-control" type="text" placeholder='Try "building mobile app"' />
-            <button type='submit' className='btn btn-outline-success '>Search</button>
+            <input className="form-control" type="text" placeholder='Try "building mobile app"' onChange={(e)=>{
+              setKeyword(e.target.value)
+            }}/>
+            <Link href={`/search?keyword=${keyword}`} type='submit' className='btn btn-outline-success '>Search</Link>
           </div>
           <div className='popular'>
             <h5 className='d-inline'>Popular:</h5>

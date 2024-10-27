@@ -4,6 +4,7 @@ import "./scss/custom.scss"
 import 'animate.css';
 import HeaderPage from "./component/HeaderPage";
 import FooterPage from "./component/FooterPage";
+import Bem from "./(pages)/bem/page";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
