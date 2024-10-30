@@ -2,8 +2,8 @@
 const nextConfig = {
     images: {
         domains: [
-          "fiverrnew.cybersoft.edu.vn", // Add your domain here
-          // ... other domains if needed
+          "fiverrnew.cybersoft.edu.vn",
+           "sc04.alicdn.com"
         ],
     },
 };

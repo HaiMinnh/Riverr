@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Pagination } from 'antd';
 import { getAllJobApi } from '@/app/action/service/productApi';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Explore = () => {
   const [data, setData] = useState([]);
@@ -49,7 +50,7 @@ const Explore = () => {
                     alt='jobs'
                     className='rounded rounded-5'
                   />
-                  <p>{item.tenCongViec.length > 15 ? item.tenCongViec.substring(0, 20) + '...' : item.tenCongViec}<br /> </p>
+                  <p>{item.tenCongViec.length > 15 ? item.tenCongViec.substring(0,15) : item.tenCongViec}<br /> </p>
                 </div>
                 <p>{item.moTa.length > 15 ? item.moTa.substring(0, 60) + '...' : item.moTa}</p>
                 <p><i className="fa fa-star text-warning"></i> {item.saoCongViec} <span>({item.danhGia})</span></p>
@@ -59,7 +60,7 @@ const Explore = () => {
                     <p >STARTING AT ${item.giaTien}</p>
                   </div>
                   <div className="detail">
-                    <button className='btn btn-dark'>Detail</button>
+                    <Link href={`/detaill/${item.id}`} className='btn btn-dark'>Detail</Link>
                   </div>
                 </div>
               </div>
