@@ -1,6 +1,6 @@
 "use client"
-import React, { useState, useEffect } from 'react';
-import { getDetailJob, getJobDetailType, getJobMenu } from '@/app/action/service/productApi';
+import React, { useState, useEffect,} from 'react';
+import { getDetailJob, getJobMenu } from '@/app/action/service/productApi';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -29,56 +29,57 @@ const Design = () => {
     router.push(`/group/${id}`, undefined, { shallow: true });
   };
 
-  // const handleLinkCate = async (id) => {
-  //   const detail = await getJobDetailType(id);
-  //   router.push(`/productType/${id}`, undefined, { shallow: true });
-  // };
-
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className='design'>
-      <nav className='dropdownmenu'>
-        <ul>
-          {data.map((item,num) => (
-            <li key={num}>
-              <a
-                href="#"
-                className='fw-bolder'
-                onClick={(e) => { e.preventDefault(); handleLinkClick(item.id); }}
-              >
-                {item.tenLoaiCongViec}
-              </a>
-              <ul className='submenu'>
-                {item.dsNhomChiTietLoai.map((prod) => (
-                  <div key={prod.id}>
-                    <li key={prod.id}><a href="#" className='fw-bold block'>{prod.tenNhom}</a></li>
-                    {prod.dsChiTietLoai.map((chil,index) => (
-                      <div key={index}>
-                        <li><Link href={`/productType/${chil.id}`}>{chil.tenChiTiet}</Link></li>
-                      </div>
-                    ))}
-                  </div>
+        <div>
+          <div className='design'>
+            <nav className='dropdownmenu'>
+              <ul>
+                {data.map((item, num) => (
+                  <li key={num}>
+                    <Link
+                      href={`/group/${item.id}`}
+                      className='fw-bolder'
+                      onClick={(e) => { e.preventDefault(); handleLinkClick(item.id); }}
+                    >
+                      {item.tenLoaiCongViec}
+                    </Link>
+                    <ul className='submenu'>
+                      {item.dsNhomChiTietLoai.map((prod) => (
+                        <div key={prod.id}>
+                          <li key={prod.id}><a href="#" className='fw-bold block'>{prod.tenNhom}</a></li>
+                          {prod.dsChiTietLoai.map((chil, index) => (
+                            <div key={index}>
+                              <li><Link href={`/productType/${chil.id}`}>{chil.tenChiTiet}</Link></li>
+                            </div>
+                          ))}
+                        </div>
+                      ))}
+                    </ul>
+                  </li>
                 ))}
+                <li>
+                  <a href="#" className='fw-bold'>Service</a>
+                  <ul className='submenu'>
+                    <li><a href="#">SVG Canvas</a></li>
+                    <li><a href="#">CSS JS</a></li>
+                    <li><a href="#">Word Press</a></li>
+                  </ul>
+                </li>
               </ul>
-            </li>
-          ))}
-          <li>
-            <a href="#" className='fw-bold'>Service</a>
-            <ul className='submenu'>
-              <li><a href="#">SVG Canvas</a></li>
-              <li><a href="#">CSS JS</a></li>
-              <li><a href="#">Word Press</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </div>
+            </nav>
+          </div>
+        </div>
   );
 };
 
 export default Design;
+
+
+
+
 
 
