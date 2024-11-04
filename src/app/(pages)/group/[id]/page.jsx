@@ -78,14 +78,16 @@ const Group = () => {
                 ))}
             </div>
             {Array.isArray(jobDetail) && jobDetail.map((item, index) => (
-                <div key={index}>
+                <div key={index} className='text-job'>
                     <h3>Explore {item.tenLoaiCongViec}</h3>
                     <div className="row">
                         {item.dsNhomChiTietLoai.map((type, idx) => (
                             <div key={idx} className="col-3">
                                 <Image width={350} height={200} alt='icon' src={type.hinhAnh || "/images/default.png"} className='img' />
                                 {type.dsChiTietLoai.map((name, num) => (
-                                    <Link href={`/productType/${name.id}`} key={num} className='text-decoration-none d-block fw-bold text-black'>{name.tenChiTiet}</Link>
+                                    <div>
+                                    <Link href={`/productType/${name.id}`} key={num} className='text-decoration-none d-inline-block fw-bold text-black'>{name.tenChiTiet}</Link>
+                                    </div>
                                 ))}
                             </div>
                         ))}
@@ -96,7 +98,7 @@ const Group = () => {
             <div className="row text-center">
                 {data2.map((item, index) => (
                     <div key={index} className='col-4'>
-                        <Image width={400} height={250} alt='icon' src={item.img} />
+                        <Image width={400} height={250} alt='icon' src={item.img} className='img'/>
                         <p>{item.title}</p>
                     </div>
                 ))}

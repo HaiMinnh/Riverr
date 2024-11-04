@@ -61,14 +61,14 @@ const Design = () => {
                     </ul>
                   </li>
                 ))}
-                <li>
+                {/* <li>
                   <a href="#" className='fw-bold'>Service</a>
                   <ul className='submenu'>
                     <li><a href="#">SVG Canvas</a></li>
                     <li><a href="#">CSS JS</a></li>
                     <li><a href="#">Word Press</a></li>
                   </ul>
-                </li>
+                </li> */}
               </ul>
             </nav>
           </div>

@@ -30,7 +30,7 @@ const Explore = () => {
       <h3>({data.length}) service available</h3>
       <div className="row">
         {currentData.map((item) => (
-          <div className="col-md-3 mt-4" key={item.id}>
+          <div className="col-3 mt-4" key={item.id}>
             <div className="card">
               <div className="card-header p-0 m-0">
                 <Image
@@ -52,12 +52,12 @@ const Explore = () => {
                   />
                   <p>{item.tenCongViec.length > 15 ? item.tenCongViec.substring(0,15) : item.tenCongViec}<br /> </p>
                 </div>
-                <p>{item.moTa.length > 15 ? item.moTa.substring(0, 60) + '...' : item.moTa}</p>
-                <p><i className="fa fa-star text-warning"></i> {item.saoCongViec} <span>({item.danhGia})</span></p>
+                <p className='des'>{item.moTa.length > 15 ? item.moTa.substring(0, 55) + '...' : item.moTa}</p>
+                <p className='icon'><i className="fa fa-star text-warning"></i> {item.saoCongViec} <span>({item.danhGia})</span></p>
                 <div className="group-footer d-flex justify-content-between">
                   <div className='text'>
                     <i className="fa fa-heart text-secondary"></i>
-                    <p >STARTING AT ${item.giaTien}</p>
+                    <p className='price'>STARTING AT ${item.giaTien}</p>
                   </div>
                   <div className="detail">
                     <Link href={`/detaill/${item.id}`} className='btn btn-dark'>Detail</Link>

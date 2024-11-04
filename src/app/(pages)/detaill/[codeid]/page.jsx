@@ -104,7 +104,7 @@ const Detail = () => {
             <hr />
             <p><span className='fw-bold'>mô tả in đậm</span> mô tả ko in đậm</p>
             <div className="img">
-              <Image width={800} height={400} alt='img-job' src={item.congViec.hinhAnh} />
+              <Image width={800} height={400} alt='img-job' src={item.congViec.hinhAnh} className='images'/>
             </div>
             <div className='text'>
               <h3>About This Gig</h3>
@@ -118,7 +118,7 @@ const Detail = () => {
               <p ><span className='text-warning'><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span> <i class="fa fa-star"></i> <i class="fa fa-star"></i> ({item.congViec.danhGia})</p>
               <button className='btn btn-outline-success'>Contact Me</button>
               <p>FAQ</p>
-              <div className='content'>
+              {/* <div className='content'>
                 <div className='item'>
                   <p className="d-inline-flex gap-1">
                     <p className="fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -246,7 +246,7 @@ const Detail = () => {
                 <h5>Leave some comments</h5>
                 <p><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> Rating</p>
                 <textarea name="message" cols="30" rows="10" placeholder="Enter your message..." maxlength="200" required className='bg-black'></textarea>
-              </div>
+              </div> */}
               <button className='btn btn-success mt-2'>Comment</button>
             </div>
           </div>

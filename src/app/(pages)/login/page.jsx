@@ -87,7 +87,7 @@ const Login = () => {
                     </div>
                     <div className="signin-form">
                         <h2 className="form-title mb-5">
-                            Đăng Nhập vào Fiverr
+                            Login Fiverr
                         </h2>
                         <form
                             className="login-form"
