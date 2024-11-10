@@ -13,6 +13,7 @@ export default function GigCard(props) {
     const {id, congViec} = props || {};
     const [isDeleted, setIsDeleted] = useState(false);
 
+    console.log(id,"id nè")
     const {
         tenCongViec,
         danhGia,
@@ -92,7 +93,7 @@ export default function GigCard(props) {
                                     <Button
                                         as={Link}
                                         variant="success"
-                                        href={`/jobDetail/${id}`}
+                                        href={`/detaill/${congViec.id}`}
                                         className="me-2">
                                         View detail
                                     </Button>

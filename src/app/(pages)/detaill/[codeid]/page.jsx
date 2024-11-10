@@ -1,8 +1,11 @@
 "use client"
 import { getBigDataApi } from '@/app/action/service/functionApi';
+import { hireWord } from '@/app/action/service/hireWord';
 import { onlyGetDetailJob } from '@/app/action/service/productApi';
+import { getUserInfoApi } from '@/app/action/service/userApi';
+import { validateLoginForm } from '@/app/utils/validation';
 import Image from 'next/image'
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
 const plans = {
@@ -52,6 +55,10 @@ const Detail = () => {
   const params = useParams();
   const codeId = params.codeid;
   const [detail, setDetail] = useState({})
+  const userToken = localStorage.getItem("fiverrUserToken");
+  const idUser = localStorage.getItem("fiverrUserId")
+  const [user, setUser] = useState({})
+  const router = useRouter();
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -61,10 +68,10 @@ const Detail = () => {
     const getDetail = async () => {
       if (codeId) {
         try {
-          const detail = await onlyGetDetailJob(codeId);
-          setDetail(detail.content);
+          const res = await onlyGetDetailJob(codeId);
+          setDetail(res.content);
           const getComment = await getBigDataApi(url, codeId)
-          setComment(getComment.content)
+          setComment(getComment.content);
         } catch (err) {
           setError("Failed to fetch job details");
           console.error(err);
@@ -90,6 +97,33 @@ const Detail = () => {
   const handlePlanChange = (plan) => {
     setSelectedPlan(plan);
   };
+
+  const getCurrentDate = () => {
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Tháng trong JavaScript bắt đầu từ 0
+    const year = today.getFullYear();
+
+    const currentDate = `${year}-${month}-${day}`;
+    return currentDate;
+  };
+
+  const hireJob = async () => {
+    try {
+      if (idUser && userToken) {
+        const newDetail = detail.map((item) => item.congViec.id)
+        const res = await hireWord(userToken, newDetail[0], idUser, getCurrentDate());
+        alert("Đăng ký thành công")
+      }
+      else{
+        router.push('/loginz``');
+      }
+    } catch (error) {
+      console.log("Error call API get list types from BE", error);
+    }
+  };
+
+
   return (
     <div className='container detail'>
       <div className="row">
@@ -102,23 +136,38 @@ const Detail = () => {
               <p>{item.tenNguoiTao} <span className='text-warning'>Top Rated Seller | <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> {item.congViec.saoCongViec} </span> ({item.congViec.danhGia}) | 4 Orders in Quoue</p>
             </div>
             <hr />
-            <p><span className='fw-bold'>mô tả in đậm</span> mô tả ko in đậm</p>
             <div className="img">
-              <Image width={800} height={400} alt='img-job' src={item.congViec.hinhAnh} className='images'/>
+              <Image width={800} height={400} alt='img-job' src={item.congViec.hinhAnh} className='images' />
             </div>
             <div className='text'>
               <h3>About This Gig</h3>
               <p>{item.congViec.moTa}</p>
             </div>
             <hr />
-            <span>About The Seller</span>
+            <p>About The Seller</p>
             <div className='introduce'>
-              <Image width={65} height={65} src={item.avatar} className='rounded rounded-5' />
-              <p>{item.tenNguoiTao}<br /> <span>{item.tenLoaiCongViec}</span></p>
-              <p ><span className='text-warning'><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></span> <i class="fa fa-star"></i> <i class="fa fa-star"></i> ({item.congViec.danhGia})</p>
-              <button className='btn btn-outline-success'>Contact Me</button>
-              <p>FAQ</p>
-              {/* <div className='content'>
+              <div className='d-flex'>
+                <Image width={150} height={150} src={item.avatar} className='ima' />
+                <div className='contact'>
+                  <span>{item.tenNguoiTao}</span>
+                  <br />
+                  <span>{item.tenLoaiCongViec}</span>
+                  <div className='icon'>
+                    <div className='text-warning d-inline'>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    ({item.congViec.danhGia})
+                  </div>
+                  <button className='btn btn-outline-success'>Contact Me</button>
+                </div>
+              </div>
+              <span className='fw-bold
+              '>FAQ</span>
+              <div className='content'>
                 <div className='item'>
                   <p className="d-inline-flex gap-1">
                     <p className="fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -246,7 +295,7 @@ const Detail = () => {
                 <h5>Leave some comments</h5>
                 <p><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> Rating</p>
                 <textarea name="message" cols="30" rows="10" placeholder="Enter your message..." maxlength="200" required className='bg-black'></textarea>
-              </div> */}
+              </div>
               <button className='btn btn-success mt-2'>Comment</button>
             </div>
           </div>
@@ -269,14 +318,16 @@ const Detail = () => {
                 ))}
               </ul>
               <div className='text-center'>
-                <button className="cta-button btn">Continue ({plans[selectedPlan].price})</button>
+                <button className="cta-button btn" onClick={() => {
+                  hireJob()
+                }}>Continue ({plans[selectedPlan].price})</button>
                 <a href="#" className="compare-link">Compare Packages</a>
               </div>
             </div>
           </div>
           <div className="special-requirements">
             <p>Do you have any special requirements?</p>
-            <button className="quote-button">Get a Quote</button>
+            <button className="quote-button btn btn-light" >Get a Quote</button>
           </div>
         </div>
       </div>
