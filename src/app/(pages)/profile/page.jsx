@@ -2,13 +2,17 @@
 
 import React, {useEffect, useState} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faPen, faUser} from '@fortawesome/free-solid-svg-icons';
+import {faPen, faUser, faCamera} from '@fortawesome/free-solid-svg-icons';
 import Modal from 'react-bootstrap/Modal';
 import UpdateUserForm from './_components/UpdateUserInfo';
 import {useRouter} from 'next/navigation';
-import {getUserInfoApi} from '@/app/action/service/userApi';
+import {
+    getUserInfoApi,
+    updateUserAvatarApi,
+} from '@/app/action/service/userApi';
 import {Button} from 'react-bootstrap';
 import Gigs from './_components/Gigs';
+import Image from 'next/image';
 
 const UserProfile = () => {
     const [user, setUser] = useState(null);
@@ -24,7 +28,7 @@ const UserProfile = () => {
         const loggedInUserId = localStorage.getItem('fiverrUserId');
 
         if (!loggedInUserId) {
-            router.push('/login');
+            router.push('/login', {});
         }
 
         // call the function
@@ -110,22 +114,55 @@ const OnlineStatus = () => (
 );
 
 const ProfileInfo = ({user, setUser}) => {
+    const [previewUrl, setPreviewUrl] = useState(user?.avatar || null);
+
+    const handleFileChange = async (event) => {
+        if (event.target.files && event.target.files[0]) {
+            const file = event.target.files[0];
+
+            const loggedInUserToken = localStorage.getItem('fiverrUserToken');
+            if (!loggedInUserToken) {
+                alert('No user token found!');
+                return;
+            }
+
+            if (file) {
+                const formData = new FormData();
+                formData.append('formFile', file);
+
+                const result = await updateUserAvatarApi(
+                    loggedInUserToken,
+                    formData
+                );
+
+                setPreviewUrl(result?.content?.avatar || null);
+                alert('Profile picture uploaded successfully!');
+            }
+        }
+    };
+
     return (
         <div className="info_profile">
             <div className="info_profile_image">
                 <label className="info_label">
                     <div className="label_camera">
-                        <span>
-                            <i className="las la-camera icon"></i>
-                        </span>
+                        <FontAwesomeIcon icon={faCamera} className="icon" />
                     </div>
-                    <input className="label_inp" type="file" />
+                    <input
+                        className="label_inp"
+                        onChange={handleFileChange}
+                        accept="image/*"
+                        type="file"
+                    />
                     <div className="image d-flex">
-                        <p
-                            className="text my-0 text-center"
-                            style={{fontSize: '16px'}}>
-                            {user.name}
-                        </p>
+                        <Image
+                            src={
+                                previewUrl || '/images/avatar-placeholder.webp'
+                            }
+                            alt="avatar"
+                            fill
+                            className="w-100 h-100 object-fit-cover"
+                        />
                     </div>
                 </label>
             </div>

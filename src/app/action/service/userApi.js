@@ -1,52 +1,61 @@
-import { TokenCyber } from "./tokenCyber";
+import {TokenCyber} from './tokenCyber';
 
 export const getAllUserApi = async () => {
     try {
-        const res = await fetch('https://fiverrnew.cybersoft.edu.vn/api/users', {
-            headers: {
-                tokenCybersoft: TokenCyber,
-            },
-            next: { revalidate: 30 }
-        });
+        const res = await fetch(
+            'https://fiverrnew.cybersoft.edu.vn/api/users',
+            {
+                headers: {
+                    tokenCybersoft: TokenCyber,
+                },
+                next: {revalidate: 30},
+            }
+        );
         const data = await res.json();
-        console.log(data)
+        console.log(data);
         return data.content;
     } catch (error) {
-        alert("Don't get Data from Api")
+        alert("Don't get Data from Api");
     }
-}
+};
 
 export const searchUserApi = async (keyword) => {
     try {
-        const res = await fetch(`https://fiverrnew.cybersoft.edu.vn/api/users/search/${keyword}`, {
-            headers: {
-                tokenCybersoft: TokenCyber,
-            },
-            next: { revalidate: 30 }
-        });
+        const res = await fetch(
+            `https://fiverrnew.cybersoft.edu.vn/api/users/search/${keyword}`,
+            {
+                headers: {
+                    tokenCybersoft: TokenCyber,
+                },
+                next: {revalidate: 30},
+            }
+        );
         const data = await res.json();
-        console.log(data)
+        console.log(data);
         return data.content;
     } catch (error) {
-        alert("Don't get Data from Api")
+        alert("Don't get Data from Api");
     }
-}
+};
 
 export const deleteUserApi = async (id) => {
     try {
-        const res = await fetch(`https://fiverrnew.cybersoft.edu.vn/api/users?id=${id}`, {
-            method: 'DELETE',
-            headers: {
-                tokenCybersoft: TokenCyber,
-            },
-            next: { revalidate: 30 }
-        });
+        const res = await fetch(
+            `https://fiverrnew.cybersoft.edu.vn/api/users?id=${id}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    tokenCybersoft: TokenCyber,
+                },
+                next: {revalidate: 30},
+            }
+        );
         const data = await res.json();
         return data.content;
     } catch (error) {
-        alert("Delete User Api")
+        alert('Delete User Api');
     }
-}
+};
 
 //Api Minh
 export const signupUserApi = async (userInfo) => {
@@ -160,6 +169,33 @@ export const updateUserInfoApi = async (userId, userInfo) => {
         return data.content;
     } catch (error) {
         console.log('error', error);
+    }
+};
+
+// hàm cập nhật thông tin profile avatar
+export const updateUserAvatarApi = async (token, formData) => {
+    try {
+        const response = await fetch(
+            'https://fiverrnew.cybersoft.edu.vn/api/users/upload-avatar',
+            {
+                method: 'POST',
+                headers: {
+                    accept: 'application/json',
+                    token,
+                    tokenCybersoft: TokenCyber,
+                },
+                body: formData,
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error('Upload failed');
+        }
+
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.error('Error uploading file:', error);
     }
 };
 
